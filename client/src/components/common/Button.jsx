@@ -46,7 +46,6 @@ const Button = ({ children, isInverted, isLink, ...others }) => {
   ) : (
     <TouchableOpacity
       {...others}
-      onPress={onPress}
       style={btnStyles}>
       <Text style={btnTextStyles}>
         {children}
@@ -56,7 +55,7 @@ const Button = ({ children, isInverted, isLink, ...others }) => {
 };
 
 Button.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   isInverted: PropTypes.bool,
   isLink: PropTypes.bool
 };
