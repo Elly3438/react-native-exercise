@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const VehicleListItem = ({ id, image, make, model, price }) => (
+const VehicleListItem = ({ id, image, history, make, match, model, price }) => (
   <View style={styles.listItem}>
     <VehicleListItemSection>
       <View style={styles.header}>
@@ -70,7 +70,7 @@ const VehicleListItem = ({ id, image, make, model, price }) => (
         style={styles.image} />
     </VehicleListItemSection>
     <VehicleListItemSection>
-      <Button isInverted onPress={() => {}}>View Vehicle</Button>
+      <Button isInverted onPress={() => { history.push({ pathname: `${match.url}/${id}` })}}>View Vehicle</Button>
     </VehicleListItemSection>
   </View>
 );

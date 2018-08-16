@@ -32,7 +32,11 @@ class VehicleList extends Component {
   keyExtractor = item => item.id;
 
   renderItem = ({ item }) => (
-    <VehicleListItem {...item} image={item.images[0].low} />
+    <VehicleListItem
+      {...item}
+      history={this.props.history}
+      image={item.images[0].low}
+      match={this.props.match} />
   );
 
   render() {

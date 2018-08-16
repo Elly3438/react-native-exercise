@@ -6,6 +6,7 @@ import configureStore from './src/redux/configureStore';
 import Header from './src/components/common/Header.jsx';
 import Home from './src/components/Home/Home';
 import VehicleList from './src/components/VehicleList/VehicleList';
+import VehicleDetails from './src/components/VehicleDetails/VehicleDetails';
 
 const store = configureStore();
 
@@ -22,7 +23,11 @@ export default class App extends Component {
               path="/"/>
             <Route
               component={VehicleList}
+              exact
               path="/vehicle-list" />
+            <Route
+              component={VehicleDetails}
+              path="/vehicle-list/:id" />
           </View>
         </NativeRouter>
       </Provider>

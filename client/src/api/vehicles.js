@@ -4,3 +4,8 @@ export const fetchVehicles = () => {
   return fetch(`${BASE_URL}vehicles`)
     .then(response => response.json());
 };
+
+export const fetchVehicle = id => {
+  return fetch(`${BASE_URL}vehicles/${id}`)
+    .then(response => response.json());
+};
