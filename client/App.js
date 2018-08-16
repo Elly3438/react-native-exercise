@@ -16,7 +16,7 @@ export default class App extends Component {
       <Provider store={store}>
         <NativeRouter>
           <View style={styles.container}>
-            <Header>Vehicle Browser</Header>
+            <Header />
             <Route
               component={Home}
               exact
