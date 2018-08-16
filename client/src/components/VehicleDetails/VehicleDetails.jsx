@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
-import { fetchVehicleAction } from '../../redux/vehicle/vehicleActionCreators';
+import { fetchVehicleAction, reserveVehicleAction } from '../../redux/vehicle/vehicleActionCreators';
 import Button from '../common/Button';
 import Spinner from '../common/Spinner';
 
@@ -46,6 +46,10 @@ const styles = StyleSheet.create({
   },
   trim: {
     marginBottom: 20
+  },
+  reservingError: {
+    color: '#FF0000',
+    marginBottom: 10
   }
 });
 
@@ -63,14 +67,32 @@ class VehicleDetails extends Component {
     this.props.handleFetchVehicle(this.props.match.params.id);
   }
 
+  componentDidUpdate() {
+    const { orderPlacedAt } = this.props;
+
+    if (orderPlacedAt) {
+      this.props.history.push({
+        pathname: '/success',
+        state: {
+          orderPlacedAt
+        }
+      });
+    }
+  }
+
   calculateWidth = () => {
     this.setState({
       width: Dimensions.get('window').width
     });
   }
 
+  onReservePress = () => {
+    this.props.handleReserveVehicle(this.props.vehicle.id);
+  }
+
   render() {
-    const { isError, isFetching, vehicle } = this.props;
+    const { error, isError, isFetching, isReserving,
+      isReservingError, orderPlacedAt, vehicle } = this.props;
     const { width } = this.state;
 
     return (
@@ -109,10 +131,27 @@ class VehicleDetails extends Component {
                 <Text>{vehicle.description}</Text>
               </View>
               <View style={styles.container}>
-                <Button>Reserve Now</Button>
+                {
+                  isReservingError ? (
+                    <Text style={styles.reservingError}>
+                      There was a problem. Please wait and try again...
+                    </Text>
+                  ) : null
+                }
+                {
+                  isReserving ?
+                    <Spinner size="small" />
+                    : <Button onPress={this.onReservePress}>Reserve Now</Button>
+                }
+                {
+                  orderPlacedAt ? <Text>{orderPlacedAt}</Text> : null
+                }
               </View>
             </ScrollView>
           ) : null
+        }
+        {
+          error ? <Text style={styles.reservingError}>{error.message}</Text> : null
         }
         {
           isError ? (
@@ -127,14 +166,21 @@ class VehicleDetails extends Component {
 }
 
 const mapStateToProps = state => ({
+  error: state.vehicle.error,
   isError: state.vehicle.isError,
+  isReservingError: state.vehicle.isReservingError,
   isFetching: state.vehicle.isFetching,
+  isReserving: state.vehicle.isReserving,
+  orderPlacedAt: state.vehicle.orderPlacedAt,
   vehicle: state.vehicle.vehicle
 });
 
 const mapDispatchToProps = dispatch => ({
   handleFetchVehicle: id => {
     dispatch(fetchVehicleAction(id));
+  },
+  handleReserveVehicle: id => {
+    dispatch(reserveVehicleAction(id));
   }
 });
 

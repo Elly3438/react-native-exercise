@@ -7,6 +7,7 @@ import Header from './src/components/common/Header.jsx';
 import Home from './src/components/Home/Home';
 import VehicleList from './src/components/VehicleList/VehicleList';
 import VehicleDetails from './src/components/VehicleDetails/VehicleDetails';
+import Success from './src/components/Success/Success';
 
 const store = configureStore();
 
@@ -28,6 +29,9 @@ export default class App extends Component {
             <Route
               component={VehicleDetails}
               path="/vehicle-list/:id" />
+            <Route
+              component={Success}
+              path="/success" />
           </View>
         </NativeRouter>
       </Provider>

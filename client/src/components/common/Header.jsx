@@ -45,6 +45,9 @@ const Header = () => (
       path="/vehicle-list"
       render={() => <View style={styles.mainHeader}><Text style={styles.headerText}>Vehicle List</Text></View>} />
     <Route
+      path="/success"
+      render={() => <View style={styles.mainHeader}><Text style={styles.headerText}>Reservation Success</Text></View>} />
+    <Route
       path="/vehicle-list/:id"
       render={() => [
         <View key="vehicle_header_back" style={styles.headerItem}>

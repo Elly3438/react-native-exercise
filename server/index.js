@@ -34,7 +34,7 @@ const getVehicles = async (req, res) => {
 
 const reserveVehicle = async (req, res) => {
   const { vehicleId } = await json(req)
-
+console.log('VEHICLE ID', vehicleId);
   if (!vehicleId || !vehicles.find(v => v.id === vehicleId)) {
     send(res, 400, { validationError: 'Invalid vehicle id' })
     return

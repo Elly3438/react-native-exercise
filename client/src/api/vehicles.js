@@ -9,3 +9,16 @@ export const fetchVehicle = id => {
   return fetch(`${BASE_URL}vehicles/${id}`)
     .then(response => response.json());
 };
+
+export const reserveVehicle = id => {
+  return fetch(`${BASE_URL}reserve`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      vehicleId: id
+    })
+  });
+};
