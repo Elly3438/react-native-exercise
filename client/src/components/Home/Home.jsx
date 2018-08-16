@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Link } from 'react-router-native';
 import Button from '../common/Button';
 
 const styles = StyleSheet.create({
@@ -26,7 +25,7 @@ const Home = () => (
       <Text style={styles.mainHeading}>Welcome!</Text>
     </View>
     <View style={styles.homeItem}>
-      <Button isLink to="/">
+      <Button isLink to="/vehicle-list">
         <Text>Start Browsing</Text>
       </Button>
     </View>
